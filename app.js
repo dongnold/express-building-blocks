@@ -1,15 +1,18 @@
 var express = require('express');
 var app = express();
 
-app.get("/", function(request, response) {
+//app.get("/", function(request, response) {
 	//throw "Hey Error" ;
-	response.json("OK");
+//	response.json("OK");
 	
-});
+//});
 
+
+app.use(express.static("public"));
 
 app.get("/cities", function(request, response) {
-	response.json("OK");
+	var cities = ["Lotopia", "Caspiana", "Indigo"]; 
+	response.json(cities);
 });
 
 module.exports  = app ;

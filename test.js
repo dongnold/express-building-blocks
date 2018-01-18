@@ -5,11 +5,20 @@ describe("Requests to the root path", function() {
 	it("Returns a 200 status code", function(done) {
 		request(app)
 		.get("/")
-		.expect(200)
-		.end(function(error) {
-			if (error) throw error;
-			done();
-		});
+		.expect(200, done)
+	});
+	
+	it("Returns HTML format", function(done) {
+		request(app)
+		.get("/")
+		.expect("Content-Type", /html/, done);
+	});
+	
+	
+	it("Returns index file with Cities " , function(done) {
+		request(app)
+		.get("/")
+		.expect(/Cities/, done);
 	});
 }); 
 
@@ -25,11 +34,14 @@ describe("Listing cities on /cities", function() {
 	it("Returns JSON content-type", function(done) {
 		request(app)
 		.get("/cities")
-		.expect("Content-Type",/json/)
-		.end(function(error) {
-			if (error) throw error;
-			done();
-		});
+		.expect("Content-Type",/json/,done)
+	});
+	
+	it("Returns initial cities", function(done) {
+		request(app)
+		.get("/cities")
+		.expect(JSON.stringify(["Lotopia", "Caspiana", "Indigo"]),done)
+		
 	});
 }); 
 
