@@ -13,3 +13,23 @@ describe("Requests to the root path", function() {
 	});
 }); 
 
+
+describe("Listing cities on /cities", function() {
+	it("Returns a 200 status code", function(done) {
+		request(app)
+		.get("/cities")
+		.expect(200,done)
+		
+	});
+	
+	it("Returns JSON content-type", function(done) {
+		request(app)
+		.get("/cities")
+		.expect("Content-Type",/json/)
+		.end(function(error) {
+			if (error) throw error;
+			done();
+		});
+	});
+}); 
+

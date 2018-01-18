@@ -8,4 +8,8 @@ app.get("/", function(request, response) {
 });
 
 
+app.get("/cities", function(request, response) {
+	response.json("OK");
+});
+
 module.exports  = app ;
