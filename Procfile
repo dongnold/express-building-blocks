@@ -1,1 +1,1 @@
-web: /www.bat
+web: node startserver.js
