@@ -1,1 +1,1 @@
-web: www.bat
+web: ./www.bat
