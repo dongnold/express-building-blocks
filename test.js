@@ -70,5 +70,23 @@ describe("Creating new cities", function() {
 		.expect(/Springfield/,done);
 
 	});	
+});
+
+describe("Delete cities", function() {
+	
+	before(function(){
+		client.hset("cities" , "CityToDelete" , "test city to delete");
+	});
+	
+	after(function(){
+		client.flushdb();
+	});
+	
+	it("Returns a 204 status code", function(done) {
+		request(app)
+		.delete("/cities/CityToDelete")
+		.expect(204,done)
+		
+	});
 	
 });
