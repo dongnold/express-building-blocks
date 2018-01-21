@@ -3,9 +3,22 @@ var app = express();
 var bodyParser = require('body-parser');
 var urlEncoder = bodyParser.urlencoded({extended:false});
 var redis = require('redis');
-var client = redis.createClient();
 
-client.select(process.env.NODE_ENV.length || "development".length);
+var client ;
+
+//Create Redis connection
+if (process.env.REDISTOGO_URL) {
+    var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+	client= redis.createClient(rtg.port, rtg.hostname);
+
+	client.auth	(rtg.auth.split(":")[1]);
+} else {
+    client = redis.createClient();
+}
+
+
+
+client.select((process.env.NODE_ENV || "development").length);
  
 //app.get("/", function(request, response) {
 	//throw "Hey Error" ;
