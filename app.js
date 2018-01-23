@@ -20,14 +20,6 @@ if (process.env.REDISTOGO_URL) {
 
 
 
- 
-//app.get("/", function(request, response) {
-	//throw "Hey Error" ;
-//	response.json("OK");
-	
-//});
-
-
 app.use(express.static("public"));
 
 
@@ -74,5 +66,12 @@ app.delete("/cities/:name",  function(request, response) {
 });
 
 
+app.get("/cities/:name",  function(request, response) {
+	client.hget("cities",  request.params.name, function(error, description) {
+		if (error) throw error;	
+		response.render("show.ejs", {city: {name: request.params.name, description:description}} );
+	});		
+	
+});
 
 module.exports  = app ;
